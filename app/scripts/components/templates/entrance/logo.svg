@@ -1,0 +1,49 @@
+<svg width="336" height="117" viewBox="0 0 336 117">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-5 {
+        fill: #25282a;
+      }
+
+      .cls-1 {
+        font-size: 21px;
+      }
+
+      .cls-1, .cls-5 {
+        font-family: Meiryo-Bold, Meiryo;
+        font-weight: 700;
+        letter-spacing: 0.036em;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        fill: #3aa1f2;
+      }
+
+      .cls-5 {
+        font-size: 50px;
+      }
+    </style>
+  </defs>
+  <g id="グループ_23" data-name="グループ 23" transform="translate(-20 -348)">
+    <text id="地上最ストイックなTODOアプリ" class="cls-1" transform="translate(28 456)"><tspan x="0" y="0">地上最ストイックなTODOアプリ</tspan></text>
+    <g id="グループ_22" data-name="グループ 22" transform="translate(4 47)">
+      <g id="グループ_21" data-name="グループ 21" transform="translate(16 301)">
+        <g id="グループ_15" data-name="グループ 15" transform="translate(9.568 15.44)">
+          <rect id="長方形_185" data-name="長方形 185" class="cls-2" width="58" height="6" rx="3" transform="translate(7.432 11.56)"/>
+          <rect id="長方形_186" data-name="長方形 186" class="cls-2" width="59" height="6" rx="3" transform="translate(0.432 41.56)"/>
+          <rect id="長方形_187" data-name="長方形 187" class="cls-2" width="58.437" height="6.558" rx="3.279" transform="matrix(-0.259, 0.966, -0.966, -0.259, 58.91, 1.73)"/>
+          <rect id="長方形_188" data-name="長方形 188" class="cls-2" width="58.437" height="6.558" rx="3.279" transform="matrix(-0.259, 0.966, -0.966, -0.259, 28.22, 1.697)"/>
+        </g>
+        <circle id="楕円形_5" data-name="楕円形 5" class="cls-3" cx="45" cy="45" r="45"/>
+        <g id="パス_11" data-name="パス 11" transform="translate(22.159 24.245)">
+          <path id="パス_12" data-name="パス 12" class="cls-4" d="M56.884,216.055a2.6,2.6,0,0,1-1.726-.653l-14.2-12.547a2.607,2.607,0,0,1,3.452-3.908l12.532,11.07L83.849,187.7a2.607,2.607,0,1,1,3.328,4.014l-28.63,23.739A2.6,2.6,0,0,1,56.884,216.055Z" transform="translate(-40.073 -187.102)"/>
+        </g>
+      </g>
+      <text id="TASK334" class="cls-5" transform="translate(102 365)"><tspan x="0" y="0">TASK334</tspan></text>
+    </g>
+  </g>
+</svg>

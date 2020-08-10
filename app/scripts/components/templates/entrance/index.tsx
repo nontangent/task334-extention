@@ -1,0 +1,1 @@
+export { EntranceTemplate } from './entrance';
