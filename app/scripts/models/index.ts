@@ -18,3 +18,9 @@ export interface Task {
 	createdAt: moment.Moment;
 	updatedAt: moment.Moment;
 }
+
+export interface Twitter {
+	id: string;
+	accessToken: string;
+	secret: string;
+}

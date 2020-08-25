@@ -5,24 +5,15 @@
 //   console.log('previousVersion', details.previousVersion);
 // });
 
-// chrome.webRequest.onHeadersReceived.addListener((details: any) => {
-// 	const headers = details.responseHeaders.filter(e => {
-// 		return e.name.toLowerCase() != 'content-security-policy'
-// 	});
-// 	console.log('headers:', headers);
-// }, {
-// 	urls: [
-// 		'https://twitter.com/*',
-// 		'https://twitter.com/i/timeline'
-// 	]
-// },
-// [
-// 	'blocking',
-// 	'responseHeaders'
-// ]);
-
 chrome.webRequest.onHeadersReceived.addListener(function(details){
-	const headers = details.responseHeaders.filter(e => e.name.toLowerCase() != 'content-security-policy');
+	const headers = details.responseHeaders.filter(e => {
+		if (e.name.toLowerCase() == 'content-security-policy') {
+			return false;
+		} else if (e.name.toLocaleLowerCase() == 'x-frame-options') {
+			return false;
+		} 
+		return true;
+	});
 	console.log('headers:', headers);
   return {responseHeaders: headers};
 }, {urls: ["https://twitter.com/i/timeline", "https://twitter.com/*"]}, ["blocking", "responseHeaders"])
