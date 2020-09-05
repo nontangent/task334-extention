@@ -2,7 +2,7 @@
   <defs>
     <style>
       .cls-1, .cls-2, .cls-5 {
-        fill: #25282a;
+        fill: var(--root-color);
       }
 
       .cls-1 {
@@ -20,7 +20,7 @@
       }
 
       .cls-4 {
-        fill: #3aa1f2;
+        fill: var(--root-accent-color);
       }
 
       .cls-5 {

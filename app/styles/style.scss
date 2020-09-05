@@ -1,7 +1,16 @@
+body {
+	--root-background-color: rgb(245, 248, 250);
+	--root-accent-color: rgb(29, 161, 242);
+	--root-border-bottom-color: rgb(230, 236, 240);
+	--root-color: rgb(0, 0, 0);
+	
+}
+
 div#app-container {
-	background-color: rgb(245, 248, 250);
+	background-color: var(--root-background-color);
 	margin-bottom: 16px;
 	border-radius: 16px;
+	color: var(--root-color);
 
 	--button-height: 48px;
 
@@ -51,7 +60,7 @@ div#app-container {
 				font-weight: bold;
 				color: #fff;
 
-				background-color: rgb(29, 161, 242);
+				background-color: var(--root-accent-color);
 				border-radius: calc(var(--height) / 2);
 
 				cursor: pointer;
@@ -69,7 +78,7 @@ div#app-container {
 			line-height: 50px;
 			font-size: 19px;
 			padding-left: 16px;
-			border-bottom: 1px solid rgb(230, 236, 240);
+			border-bottom: 1px solid var(--root-border-bottom-color);
 			list-style-position: inside;
 		}
 	
@@ -81,9 +90,9 @@ div#app-container {
 	
 			li {
 				font-weight: bold;
-			border-bottom: solid 1px;
-			line-height: 80px;
-			border-bottom: 1px solid rgb(230, 236, 240);
+				border-bottom: solid 1px;
+				line-height: 80px;
+				border-bottom: 1px solid var(--root-border-bottom-color);
 				list-style-position: inside;
 				padding-left: 16px;
 	
@@ -91,7 +100,7 @@ div#app-container {
 		}
 	
 		span {
-			color: rgb(29, 161, 242);
+			color: var(--root-accent-color);
 			line-height: 50px;
 			padding-left: 16px;
 		}

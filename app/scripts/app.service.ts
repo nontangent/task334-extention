@@ -102,7 +102,22 @@ export class AppService {
 
 	signUp() {
 		var provider = new firebase.auth.TwitterAuthProvider();
-		firebase.auth().signInWithRedirect(provider).then((result: any) => {
+		// firebase.auth().signInWithRedirect(provider).then((result: any) => {
+		// 	var token = result.credential.accessToken;
+		// 	var secret = result.credential.secret;
+		// 	var user = result.user;
+		// 	console.log('user:', user);
+		// 	console.log('token:', token);
+		// 	console.log('secret:', secret);
+		// }).catch((error) => {
+		// 	var errorCode = error.code;
+		// 	var errorMessage = error.message;
+		// 	var email = error.email;
+		// 	var credential = error.credential;
+		// 	console.error(error);
+		// });
+
+		firebase.auth().signInWithPopup(provider).then((result: any) => {
 			var token = result.credential.accessToken;
 			var secret = result.credential.secret;
 			var user = result.user;

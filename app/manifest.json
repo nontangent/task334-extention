@@ -14,12 +14,13 @@
     "scripts": [
       "scripts/background.js"
     ],
-		"persistent": true
+	"persistent": true
   },
 	"content_scripts": [
 		{
 			"matches": [
-				"https://twitter.com/*"
+				"https://twitter.com/*",
+				"https://mobile.twitter.com/*"
 			],
 			"js": [
 				"scripts/loader.js"
@@ -27,9 +28,7 @@
 		}
 	],
 	"permissions": [
-		"https://ajax.googleapis.com/*",
 		"https://*.googleapis.com/*",
-		"https://twitter.com/i/timeline",
 		"https://twitter.com/*",
 		"https://*.twitter.com/*",
 		"webRequest",

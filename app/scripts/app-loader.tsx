@@ -35,6 +35,7 @@ setInterval(() => {
 	}
 }, 500);
 
+
 setInterval(() => {
 	const placeholderNode = document.evaluate("//div[starts-with(@id, 'placeholder') and contains(., 'いまどうしてる')]", document)?.iterateNext();
 	if (placeholderNode) {
