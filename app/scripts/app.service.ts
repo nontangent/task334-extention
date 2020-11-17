@@ -2,16 +2,9 @@ import * as moment from 'moment';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import { BehaviorSubject, Observable } from 'rxjs';
-import {
-	TODO,
-	User,
-	Task,
-	TaskStatus,
-	Twitter
-} from './models';
-
-let test = null;
+import { BehaviorSubject } from 'rxjs';
+import * as models from '@task334/models';
+import { M } from '@nontangent/firebase-model-utilities';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRCKehewx-LCseRzzLK0wvfWMukpyVxAo",
@@ -26,128 +19,107 @@ const firebaseConfig = {
 
 export class AppService {
 	private static _instance: AppService;
-	private db: TODO<any>;
-	user: TODO<User>;
-	user$ = new BehaviorSubject<TODO<User>>(null);
-	tasks$ = new BehaviorSubject<TODO<Task>[]>([]);
+	private db: firebase.firestore.Firestore;
+	user: firebase.User;
+	user$ = new BehaviorSubject<firebase.User>(null);
+	tasks$ = new BehaviorSubject<models.Task[]>([]);
 	count$ = new BehaviorSubject<number>(0);
 	lastUpdatedAt$ = new BehaviorSubject<moment.Moment>(moment());
 
 	private constructor() {
 
-		this.user$.subscribe((user: TODO<User>) => {
-			this.user = user;
-		})
+		this.user$.subscribe((user: firebase.User) => this.user = user);
 
 		firebase.initializeApp(firebaseConfig);
 		this.db = firebase.firestore();
 
-		firebase.auth().onAuthStateChanged((user: TODO<User>) => {
+		firebase.auth().onAuthStateChanged((user: firebase.User) => {
 			if (user) {
 				this.user$.next(user);
 				
-				this.getTasks(user.uid, {status: TaskStatus.WIP}).onSnapshot((snapshot: TODO<any>) => {
-					const tasks: TODO<Task>[] = snapshot?.docs?.map((doc: any) => {
-						return doc.data()
-					});
+				this.getTasks(user.uid, {status: models.TaskStatus.WIP}).onSnapshot((snapshot) => {
+					const tasks: models.Task[] = snapshot.docs.map((doc: any) => new M({
+						...doc.data(),
+						id: doc.id,
+						ownerId: user.uid
+					}).toMoment(firebase.firestore).data());
+
 					this.tasks$.next(tasks);
 				}); 
 
-				this.getWeeklyTasks(user.uid, {status: TaskStatus.DONE}).onSnapshot((snapshot: TODO<any>) => {
-					let count = 0;
-					snapshot.forEach((doc: TODO<any>) => {
-						count += 1;
-					});
+				this.getWeeklyTasks(user.uid, {status: models.TaskStatus.DONE}).onSnapshot((snapshot) => {
+					const tasks: models.Task[] = snapshot.docs.map((doc: any) => new M({
+						...doc.data(),
+						id: doc.id,
+						ownerId: user.uid
+					}).toMoment(firebase.firestore).data());
+					this.count$.next(tasks.length);
 
-					this.count$.next(count);
-
-					const lastUpdatedAt: moment.Moment = moment(snapshot?.docs[snapshot?.docs?.length - 1].data().updatedAt.toDate());
+					const lastUpdatedAt: moment.Moment = tasks[tasks.length - 1].updatedAt;
 					this.lastUpdatedAt$.next(lastUpdatedAt);
-					console.log('lastUpdatedAt:', lastUpdatedAt);
+					console.debug('lastUpdatedAt:', lastUpdatedAt.format());
 				});
 
 			}
 		});
 
-		firebase.auth().getRedirectResult().then((result: any) => {
-			console.log('result:', result);
-			this.user$.next(result?.user);
-			
-			if (result?.credential) {
-				const twitter: Twitter = {
-					id: result?.additionalUserInfo?.profile?.id_str,
-					accessToken: result?.credential?.accessToken,
-					secret: result?.credential?.secret
-				};
-
-				console.log('twitter:', twitter);
-				this.saveTwitter(twitter);
-			}
-
-		}).catch((error) => {
-			console.error(error);
-		});
-
 	}
 
-	getTasks(userId: string, params: {status: TaskStatus}) {
+	getTasks(userId: string, params: {status: models.TaskStatus}) {
 		return this.db.collection('users').doc(userId).collection('tasks')
-			.where('status', '==', params.status).orderBy('updatedAt');
+			.where('status', '==', params.status).orderBy('createdAt');
 	}
 
-	getWeeklyTasks(userId: string, params: {status: TaskStatus}) {
+	getWeeklyTasks(userId: string, params: {status: models.TaskStatus}) {
 		return this.db.collection('users').doc(userId).collection('tasks')
 			.where('status', '==',params.status).where('updatedAt', '>=', monday().toDate());
 	}
 
 	signUp() {
-		var provider = new firebase.auth.TwitterAuthProvider();
-		// firebase.auth().signInWithRedirect(provider).then((result: any) => {
-		// 	var token = result.credential.accessToken;
-		// 	var secret = result.credential.secret;
-		// 	var user = result.user;
-		// 	console.log('user:', user);
-		// 	console.log('token:', token);
-		// 	console.log('secret:', secret);
-		// }).catch((error) => {
-		// 	var errorCode = error.code;
-		// 	var errorMessage = error.message;
-		// 	var email = error.email;
-		// 	var credential = error.credential;
-		// 	console.error(error);
-		// });
+		const provider = new firebase.auth.TwitterAuthProvider();
+		
+		firebase.auth().signInWithPopup(provider).then((result: firebase.auth.UserCredential) => {
+			const userId = result.user.uid;
+			const twitter: models.Twitter = {
+				id: (result?.additionalUserInfo?.profile as any)?.id_str,
+				accessToken: (result?.credential as any)?.accessToken,
+				secret: (result?.credential as any)?.secret
+			};
 
-		firebase.auth().signInWithPopup(provider).then((result: any) => {
-			var token = result.credential.accessToken;
-			var secret = result.credential.secret;
-			var user = result.user;
-			console.log('user:', user);
-			console.log('token:', token);
-			console.log('secret:', secret);
+			if(result.additionalUserInfo.isNewUser) {
+				return this.createUser({
+					...models.nullUser,
+					id: userId,
+					twitter: twitter
+				});
+			} else {
+				return this.updateTwitter(userId, twitter);
+			}
 		}).catch((error) => {
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			var email = error.email;
-			var credential = error.credential;
 			console.error(error);
 		});
 		  
 	}
 
-	saveTwitter(twitter: Twitter) {
-		console.log('user:', this.user);
-
-		return this.db.collection('users').doc(this.user.uid).set({
-			twitter: twitter
+	updateTwitter(userId: string, twitter: models.Twitter) {
+		return this.db.doc(`users/${userId}`).set({
+			twitter: twitter,
+			updatedAt: firebase.firestore.FieldValue.serverTimestamp()
 		}, {merge: true});
 	}
 
-	public static get instance(): AppService {
-		if (!this._instance) {
-			this._instance = new AppService;
-		}
+	createUser(user: models.User) {
+		const fields = ['twitter', 'latestTweetId', 'createdAt', 'updatedAt'];
+		const data = new M({
+			...user,
+			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+			updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+		}).toTimestamp(firebase.firestore).filterProps(fields).data()
+		return this.db.doc(`users/${user.id}`).set(data);
+	}
 
-		return this._instance;
+	public static get instance(): AppService {
+		return this._instance || (this._instance = new AppService());
 	}
 
 }
