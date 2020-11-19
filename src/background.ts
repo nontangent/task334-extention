@@ -1,8 +1,6 @@
 // Enable chromereload by uncommenting this line:
 import 'chromereload/devonly'
 
-import { filter } from "rxjs/operators";
-
 const CONTENT_SECURITY_POLICY = `
 connect-src 'self' blob: 
 	https://*.giphy.com 
@@ -56,17 +54,12 @@ report-uri https://twitter.com/i/csp_report?a=O5RXE%3D%3D%3D&ro=false
 
 
 chrome.webRequest.onHeadersReceived.addListener(function(details){
-	console.log('blocked', details.url);
+	console.debug('blocked', details.url);
+	const targets = ['content-security-policy', 'x-frame-options'];
 	const headers = details.responseHeaders.filter(e => {
-		// console.log('e:', e);
-		if (e.name.toLowerCase() == 'content-security-policy') {
-			return false;
-		} else if (e.name.toLocaleLowerCase() == 'x-frame-options') {
-			return false;
-		} 
-		return true;
+		return !targets.includes(e.name.toLowerCase());
 	});
 
-	console.log('headers:', headers);
+	console.debug('headers:', headers);
   return {responseHeaders: headers};
 }, {urls: ["<all_urls>"]}, ["blocking", "responseHeaders"])
