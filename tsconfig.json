@@ -14,7 +14,7 @@
       ]
   },
   "include": [
-    "app",
-    "app/custom.d.ts"
+    "src/app",
+    "src/custom.d.ts"
   ]
 }

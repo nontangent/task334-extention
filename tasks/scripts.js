@@ -13,7 +13,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 const ENV = args.production ? 'production' : 'development'
 
 gulp.task('scripts', (cb) => {
-  return gulp.src(['app/scripts/*.js', 'app/scripts/*.ts', 'app/scripts/*.tsx', 'app/scripts/*.scss'])
+  return gulp.src(['src/*.js', 'src/*.ts', '!src/custom.d.ts', 'src/*.tsx', 'src/*.scss'])
     .pipe(plumber({
       // Webpack will log the errors
       errorHandler () {}
@@ -65,7 +65,7 @@ gulp.task('scripts', (cb) => {
         extensions: ['.ts', '.tsx', '.js', 'scss', 'svg'],
         modules: [
           'node_modules/',
-          'app/scripts/'
+          'src/app/'
         ]
       },
       optimization: {

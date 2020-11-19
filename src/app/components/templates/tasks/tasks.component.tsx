@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as moment from 'moment';
 import { interval } from 'rxjs';
 import * as operators from 'rxjs/operators';
-import { AppService } from '../../app.service';
-import { TODO, Task } from '../../models';
+import { AppService } from '../../../app.service';
+import { TODO, Task } from '../../../models';
 
 // import './tasks.scss';
 

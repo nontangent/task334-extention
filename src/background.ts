@@ -1,11 +1,7 @@
 // Enable chromereload by uncommenting this line:
-// import 'chromereload/devonly'
+import 'chromereload/devonly'
 
 import { filter } from "rxjs/operators";
-
-// chrome.runtime.onInstalled.addListener((details) => {
-//   console.log('previousVersion', details.previousVersion);
-// });
 
 const CONTENT_SECURITY_POLICY = `
 connect-src 'self' blob: 
@@ -70,26 +66,7 @@ chrome.webRequest.onHeadersReceived.addListener(function(details){
 		} 
 		return true;
 	});
-	// let headers = details.responseHeaders;
-
-	// if (headers.filter(e => e.name.toLowerCase() == 'content-security-policy').length) {
-	// 	headers = headers.map(e => {
-	// 		if (e.name.toLowerCase() == 'content-security-policy') {
-	// 			e.value = CONTENT_SECURITY_POLICY
-	// 		}
-	// 		return e
-	// 	})
-	// } else {
-	// 	headers.push({
-	// 		name: 'content-security-policy',
-	// 		value: CONTENT_SECURITY_POLICY
-	// 	});
-	// }
 
 	console.log('headers:', headers);
   return {responseHeaders: headers};
 }, {urls: ["<all_urls>"]}, ["blocking", "responseHeaders"])
-
-class ContentSecurityPolicy {
-
-}

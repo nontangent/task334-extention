@@ -2,18 +2,16 @@ import * as React from 'react';
 import { 
 	EntranceTemplate,
 	TasksTemplate 
-} from './templates';
-import { AppService } from '../app.service';
-import { TODO, User } from '../models';
+} from './components/templates';
+import { AppService } from './app.service';
+import { TODO, User } from './models';
 
 enum Modes {
 	ENTRANCE = 'entrance',
 	TASKS = 'tasks'
 }
 
-interface Props {
-
-}
+interface Props { }
 
 interface State {
 	mode: Modes;

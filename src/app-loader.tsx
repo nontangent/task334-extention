@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './components/app';
-import { AppService } from './app.service';
+import App from './app/app.component';
+import { AppService } from './app/app.service';
 
 const appService = AppService.instance;
 const appContainer = document.createElement('div');
@@ -23,7 +23,7 @@ function getHelp(): string {
 		'@task334 add タスク名',
 		'@task334 done タスク番号',
 		'@task334 left タスク番号',
-		'@task334 devide タスク番号 タスク名 タスク名'
+		'@task334 divide タスク番号 タスク名 タスク名'
 	];
 	return helps[Math.floor(Math.random() * helps.length)];
 }

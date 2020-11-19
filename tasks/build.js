@@ -5,10 +5,7 @@ gulp.task('build', gulp.series(
     'manifest',
     'scripts',
     'styles',
-    'pages',
-    'locales',
     'images',
-    'fonts',
     'chromereload'
   )
 ))

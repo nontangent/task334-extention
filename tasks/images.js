@@ -5,7 +5,7 @@ import livereload from 'gulp-livereload'
 import args from './lib/args'
 
 gulp.task('images', () => {
-  return gulp.src('app/images/**/*')
+  return gulp.src('src/images/**/*')
     .pipe(gulpif(args.production, imagemin()))
     .pipe(gulp.dest(`dist/${args.vendor}/images`))
     .pipe(gulpif(args.watch, livereload()))
