@@ -24,7 +24,9 @@ export class EntranceTemplate extends React.Component<Props, State> {
     }
 
 	onClickSignUpButton() {
-		this.appService.signUp();
+		this.appService.signUp().catch((error) => {
+			console.error(error);
+		});;
 	}
 
     render() {

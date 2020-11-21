@@ -76,7 +76,7 @@
   "dependencies": {
     "@nontangent/firebase-model-utilities": "^1.2.0",
     "@task334/models": "^1.0.0",
-    "firebase": "^7.17.2",
+    "firebase": "^8.0.2",
     "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -30,8 +30,8 @@ class App extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
-		this.appService.user$.subscribe((user: TODO<User>) => {
-			const mode: Modes = user ? Modes.TASKS : Modes.ENTRANCE;
+		this.appService.auth$.subscribe((auth: TODO<User>) => {
+			const mode: Modes = auth ? Modes.TASKS : Modes.ENTRANCE;
 			this.setState({mode: mode});
 		});
 	}
