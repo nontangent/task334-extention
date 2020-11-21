@@ -2,7 +2,7 @@
   "name": "task334",
   "private": true,
   "version": "1.3.1",
-  "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  "description": "TASK334 Chrome用拡張機能",
   "scripts": {
     "start": "npm run dev:chrome",
     "build": "npm run build:chrome",
@@ -16,7 +16,9 @@
     "dev:opera": "gulp --watch --vendor=opera",
     "dev:edge": "gulp --watch --vendor=edge",
     "lint": "standard",
-    "version": "gulp patch"
+    "version:patch": "gulp patch",
+    "version:minor": "gulp minor",
+    "version:major": "gulp major"
   },
   "standard": {
     "globals": [
