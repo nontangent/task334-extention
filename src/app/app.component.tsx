@@ -4,7 +4,7 @@ import {
 	TasksTemplate 
 } from './components/templates';
 import { AppService } from './app.service';
-import { TODO, User } from './models';
+import firebase from 'firebase/app';
 
 enum Modes {
 	ENTRANCE = 'entrance',
@@ -30,7 +30,7 @@ class App extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
-		this.appService.auth$.subscribe((auth: TODO<User>) => {
+		this.appService.auth$.subscribe((auth: firebase.User) => {
 			const mode: Modes = auth ? Modes.TASKS : Modes.ENTRANCE;
 			this.setState({mode: mode});
 		});

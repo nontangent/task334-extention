@@ -3,16 +3,14 @@ import * as moment from 'moment';
 import { interval } from 'rxjs';
 import * as operators from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { TODO, Task } from '../../../models';
-
-// import './tasks.scss';
+import * as models from '@task334/models';
 
 interface Props {
 
 }
 
 interface State {
-	tasks: TODO<Task>[];
+	tasks: models.Task[];
 	count: number;
 	lastUpdatedAt: moment.Moment;
 	message: string;
@@ -37,10 +35,10 @@ export class TasksTemplate extends React.Component<Props, State> {
 
 	componentDidMount() {
 		this.appService.tasks$.pipe(
-			operators.distinctUntilChanged((pre: TODO<Task>[], cur: TODO<Task>[]) => {
+			operators.distinctUntilChanged((pre: models.Task[], cur: models.Task[]) => {
 				return JSON.stringify(pre) === JSON.stringify(cur);
 			}),
-		).subscribe((tasks: TODO<Task>[]) => {
+		).subscribe((tasks: models.Task[]) => {
 			this.setState({tasks: tasks});
 		});
 
@@ -70,7 +68,7 @@ export class TasksTemplate extends React.Component<Props, State> {
 			<div className="tasks-template">
 				<h2>いまなにする？</h2>
 				<ol>
-					{this.state.tasks.map((task: Task) => <li>{task.name}</li>)}
+					{this.state.tasks.map((task: models.Task) => <li>{task.name}</li>)}
 				</ol>
 				<div>
 					<span>#TASK334</span>
@@ -81,10 +79,6 @@ export class TasksTemplate extends React.Component<Props, State> {
 		)
 	}
 }
-
-
-
-/* {formatDuration(moment().diff(this.state.lastUpdatedAt))} */
 
 function formatDuration(duration: moment.Duration): string {
 	let str = '最後のタスク完了から';
