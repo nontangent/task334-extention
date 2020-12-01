@@ -38,6 +38,9 @@ export class TasksTemplate extends React.Component<Props, State> {
 			operators.distinctUntilChanged((pre: models.Task[], cur: models.Task[]) => {
 				return JSON.stringify(pre) === JSON.stringify(cur);
 			}),
+			operators.map((tasks) => {
+				return tasks.sort((a, b) => a.name.localeCompare(b.name))
+			})
 		).subscribe((tasks: models.Task[]) => {
 			this.setState({tasks: tasks});
 		});
