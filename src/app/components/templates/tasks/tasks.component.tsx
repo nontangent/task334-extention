@@ -74,7 +74,7 @@ export class TasksTemplate extends React.Component<Props, State> {
 					{this.state.tasks.map((task: models.Task) => <li>{task.name}</li>)}
 				</ol>
 				<div>
-					<span>#TASK334</span>
+					<a href="https://twitter.com/search?q=%23TASK334&src=typed_query"><span>#TASK334</span></a>
 					<span>完了したタスク数({this.state.count})</span><br />
 					<span>{this.state.message}</span>
 				</div>
