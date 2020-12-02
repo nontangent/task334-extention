@@ -2,7 +2,7 @@
   "name": "#TASK334",
   "short_name": "TASK334",
   "description": "地上最ストイックなTODOアプリ",
-  "version": "1.4.",
+  "version": "1.4.1",
   "manifest_version": 2,
   "icons": {
     "16": "images/icon-16.png",
