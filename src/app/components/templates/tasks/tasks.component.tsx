@@ -39,7 +39,7 @@ export class TasksTemplate extends React.Component<Props, State> {
 				return JSON.stringify(pre) === JSON.stringify(cur);
 			}),
 			operators.map((tasks) => {
-				return tasks.sort((a, b) => a.name.localeCompare(b.name))
+				return tasks.sort((a, b) => a.name.localeCompare(b.name, 'jp'))
 			})
 		).subscribe((tasks: models.Task[]) => {
 			this.setState({tasks: tasks});
