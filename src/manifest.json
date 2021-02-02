@@ -5,9 +5,9 @@
   "version": "1.4.1",
   "manifest_version": 2,
   "icons": {
-    "16": "images/icon-16.png",
-		"48": "images/icon-48.png",
-    "128": "images/icon-128.png"
+    "16": "assets/icons/16x16.png",
+		"48": "assets/icons/48x48.png",
+    "128": "assets/icons/128x128.png"
   },
   "background": {
     "scripts": [
@@ -34,7 +34,7 @@
 		"webRequestBlocking"
 	],
 	"web_accessible_resources": [
-		"scripts/app-loader.js",
-		"styles/style.css"
+		"scripts/main.js",
+		"styles/styles.css"
 	]
 }

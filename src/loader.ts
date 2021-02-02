@@ -84,7 +84,7 @@ function injectStyle(file: string) {
 	return body.appendChild(el);
 }
 
-injectScript(chrome.extension.getURL('/scripts/app-loader.js'));
-injectStyle(chrome.extension.getURL('/styles/style.css'));
+injectScript(chrome.extension.getURL('/scripts/main.js'));
+injectStyle(chrome.extension.getURL('/styles/styles.css'));
 
 
